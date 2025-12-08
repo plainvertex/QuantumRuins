@@ -1,0 +1,14 @@
+[project]
+name = "quantumruins"
+version = "0.1.0"
+description = "Quantum Playground - 一个可交互的量子物理实验集合"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "streamlit>=1.28.0",
+    "numpy>=1.24.0",
+    "plotly>=5.18.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/quantumruins"
