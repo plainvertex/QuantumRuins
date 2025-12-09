@@ -11,6 +11,7 @@ def compute_double_slit(
     wavelength: float,
     slit_distance: float,
     screen_distance: float,
+    x_range: float | None = None,
     num_points: int = 2000,
 ) -> tuple[np.ndarray, np.ndarray]:
     """
@@ -43,6 +44,9 @@ def compute_double_slit(
     screen_distance : float
         狭缝到观察屏的距离（单位：与波长相同）。
         典型值范围：5.0 - 20.0。
+    x_range : float or None, optional
+        屏幕坐标范围 [-x_range, x_range]。
+        如果为 None，则自动计算以显示约 10 个条纹。
     num_points : int, optional
         屏幕上采样点的数量，默认为 2000。
         更多的点数会产生更平滑的曲线。
@@ -63,8 +67,9 @@ def compute_double_slit(
     # 计算屏幕坐标范围
     # 使用足够大的范围以显示多个干涉条纹
     # 条纹间距约为 λL/d，我们显示约 10 个条纹
-    fringe_spacing = wavelength * screen_distance / slit_distance
-    x_range = 10 * fringe_spacing
+    if x_range is None:
+        fringe_spacing = wavelength * screen_distance / slit_distance
+        x_range = 10 * fringe_spacing
     
     # 生成屏幕坐标数组
     x = np.linspace(-x_range, x_range, num_points)

@@ -65,11 +65,22 @@ with col3:
         help="狭缝到观察屏的距离。距离越远，条纹越宽。"
     )
 
+# x 轴范围控制
+x_range = st.slider(
+    "x 轴范围",
+    min_value=5.0,
+    max_value=50.0,
+    value=25.0,
+    step=1.0,
+    help="调整显示的屏幕坐标范围 [-x, x]",
+)
+
 # 计算干涉强度分布
 x, intensity = compute_double_slit(
     wavelength=wavelength,
     slit_distance=slit_distance,
     screen_distance=screen_distance,
+    x_range=x_range,
 )
 
 st.divider()
