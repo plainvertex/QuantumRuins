@@ -5,6 +5,8 @@
 """
 
 import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import rcParams, font_manager
 
 
 def normalize_array(arr: np.ndarray) -> np.ndarray:
@@ -61,3 +63,31 @@ def wavelength_to_color(wavelength: float) -> str:
         return "#FF0000"  # 红色
     else:
         return "#8B0000"  # 红外（显示为深红）
+
+
+def set_chinese_font():
+    # 常见中文字体候选（Windows优先）
+    candidates = [
+        "Microsoft YaHei",  # 微软雅黑（Win常见）
+        "SimHei",           # 黑体（Win常见）
+        "SimSun",           # 宋体（Win常见）
+        "PingFang SC",      # macOS
+        "Heiti SC",         # macOS
+        "Noto Sans CJK SC", # Linux/装了Noto时
+        "Source Han Sans SC"
+    ]
+
+    available = {f.name for f in font_manager.fontManager.ttflist}
+
+    for name in candidates:
+        if name in available:
+            rcParams["font.family"] = "sans-serif"
+            rcParams["font.sans-serif"] = [name]
+            rcParams["axes.unicode_minus"] = False
+            print("Using font:", name)
+            return name
+
+    raise RuntimeError("No Chinese font found. Please install one (e.g., Microsoft YaHei / Noto Sans CJK).")
+
+set_chinese_font()
+
